@@ -1,5 +1,5 @@
 <template>
-  <ul class="sidenav app-sidenav open">
+  <ul class="sidenav app-sidenav" :class="{open: isOpen}">
     <li v-for="link in links" :key="link.url">
       <router-link
         active-class="active"
@@ -14,6 +14,9 @@
 
 <script>
 export default {
+  props: {
+    isOpen: Boolean,
+  },
   data() {
     return {
       links: [
@@ -29,7 +32,7 @@ export default {
 </script>
 
 <style>
-.router-link-exact-active{
-    background-color: rgb(241, 241, 241);
+.router-link-exact-active {
+  background-color: rgb(241, 241, 241);
 }
 </style>

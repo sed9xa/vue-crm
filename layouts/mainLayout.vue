@@ -1,8 +1,8 @@
 <template>
   <div class="app-main-layout">
-    <navbar></navbar>
-    <sidebar></sidebar>
-    <main class="app-content">
+    <navbar @isOpen="isOpen = !isOpen"></navbar>
+    <sidebar :isOpen="isOpen"></sidebar>
+    <main class="app-content" :class="{full: !isOpen}">
       <div class="app-page">
         <router-view></router-view>
       </div>
@@ -21,6 +21,11 @@ import navbar from "@/components/UI/navbar";
 import sidebar from "@/components/UI/sidebar";
 
 export default {
+  data() {
+    return {
+      isOpen: true,
+    };
+  },
   components: {
     navbar,
     sidebar,
