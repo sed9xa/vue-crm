@@ -8,7 +8,7 @@
           type="text"
           class="validate"
           v-model="email"
-          :class="{ invalid: v$.email.$errors.length > 0 }"
+          :class="{ invalid: v$.email.$errors.length }"
         />
         <label for="email">Email</label>
         <small
@@ -16,8 +16,7 @@
           v-for="error in v$.email.$errors"
           :key="error.$uid"
           >{{ error.$message }}
-          </small
-        >
+        </small>
       </div>
       <div class="input-field">
         <input
@@ -35,6 +34,7 @@
           >{{ error.$message }}</small
         >
       </div>
+      <div class="error-message red-text text-darken-2">{{ errorMessage }}</div>
     </div>
     <div class="card-action">
       <div>
@@ -50,7 +50,7 @@
 
       <p class="center">
         Нет аккаунта?
-        <a href="/">Зарегистрироваться</a>
+        <router-link to="/registration">Зарегистрироваться</router-link>
       </p>
     </div>
   </form>
@@ -68,6 +68,7 @@ export default {
     return {
       email: "",
       password: "",
+      errorMessage: "",
     };
   },
   validations() {
@@ -77,8 +78,20 @@ export default {
     };
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       this.v$.$validate();
+      let userData = {
+        email: this.email,
+        password: this.password,
+      };
+      if (!this.v$.email.$errors.length && !this.v$.password.$errors.length) {
+        try {
+          await this.$store.dispatch("signIn", userData);
+          this.$router.push("/");
+        } catch (e) {
+          this.errorMessage = e.message.split("/")[1].replace(").", " ");
+        }
+      }
     },
   },
 };

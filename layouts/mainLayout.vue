@@ -2,7 +2,7 @@
   <div class="app-main-layout">
     <navbar @isOpen="isOpen = !isOpen"></navbar>
     <sidebar :isOpen="isOpen"></sidebar>
-    <main class="app-content" :class="{full: !isOpen}">
+    <main class="app-content" :class="{ full: !isOpen }">
       <div class="app-page">
         <router-view></router-view>
       </div>

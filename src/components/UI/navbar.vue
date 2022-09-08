@@ -43,14 +43,16 @@
 export default {
   data() {
     return {
-      date: new Date().toLocaleString().replace(',', ' '),
+      date: new Date().toLocaleString().replace(",", " "),
       dateInterval: "",
     };
   },
   methods: {
-    logOut() {
-      console.log("logout");
-      this.$router.push("/login?message=logout");
+    async logOut() {
+      try {
+        await this.$store.dispatch("logOut");
+        this.$router.push("/login?message=logout");
+      } catch (e) {console.log(e);}
     },
   },
   mounted() {
@@ -58,11 +60,11 @@ export default {
       constrainWidth: true,
     });
     this.dateInterval = setInterval(() => {
-      this.date = new Date().toLocaleString().replace(',', ' ');
+      this.date = new Date().toLocaleString().replace(",", " ");
     }, 1000);
   },
   beforeUnmount() {
-    clearInterval(this.dateInterval)
+    clearInterval(this.dateInterval);
   },
 };
 </script>
