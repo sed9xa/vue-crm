@@ -5,7 +5,7 @@ import store from "./store";
 import "materialize-css/dist/js/materialize.min";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
+import Loader from "@/components/UI/Loader";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRuheaEivL3m2kqSYAZPhhPdUjbCJyyUA",
@@ -18,11 +18,12 @@ const firebaseConfig = {
   dataBaseURL: "https://vue-crm-bbf0d-default-rtdb.firebaseio.com",
 };
 initializeApp(firebaseConfig);
-const auth = getAuth();
 
-auth.onAuthStateChanged((user) => {
-  /* console.log(user.uid); */
-  console.log("changed");
+let app;
+getAuth().onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App).use(store).use(router);
+    app.component("Loader", Loader);
+    app.mount("#app");
+  }
 });
-
-createApp(App).use(store).use(router).mount("#app");

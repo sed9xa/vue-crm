@@ -16,7 +16,7 @@
             data-target="dropdown"
             ref="dropdown"
           >
-            USER NAME
+            {{userName}}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -54,6 +54,11 @@ export default {
         this.$router.push("/login?message=logout");
       } catch (e) {console.log(e);}
     },
+  },
+  computed:{
+    userName(){
+      return this.$store.getters.info.username
+    }
   },
   mounted() {
     M.Dropdown.init(this.$refs.dropdown, {

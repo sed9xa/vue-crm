@@ -16,8 +16,6 @@ export default {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("Signed in");
-        const user = userCredential.user;
-        console.log(user);
       } catch {
         (error) => {
           throw error;
@@ -33,6 +31,7 @@ export default {
         const db = getDatabase();
         await set(ref(db, `users/${userUid}/info`), {
           username: name,
+          bill: 10000,
         });
       } catch {
         (error) => {
@@ -48,7 +47,7 @@ export default {
     async logOut({ dispatch, commit }) {
       const auth = getAuth();
       await signOut(auth);
-      console.log("Signed out");
+      commit('clearInfo')
     },
   },
   modules: {},
