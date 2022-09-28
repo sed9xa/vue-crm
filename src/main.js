@@ -7,6 +7,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import Loader from "@/components/UI/Loader";
 
+
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyDRuheaEivL3m2kqSYAZPhhPdUjbCJyyUA",
   authDomain: "vue-crm-bbf0d.firebaseapp.com",

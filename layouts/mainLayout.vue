@@ -26,7 +26,6 @@ export default {
       isOpen: true,
     };
   },
-  //1) info data just vanishing when im reloading page
   //2) i can passing by login form, despite that user dont logged in, app dont catch the error some reason
 
   async mounted() {

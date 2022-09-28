@@ -1,7 +1,7 @@
 <template>
   <div class="app-loader">
     <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue-only">
+      <div class="spinner-layer" :class="color">
         <div class="circle-clipper left">
           <div class="circle"></div>
         </div>
@@ -25,7 +25,7 @@ export default {
         "spinner-green-only",
         "spinner-red-only",
       ];
-      return colors[Math.floor(Math.random() * 3)];
+      return colors[Math.floor(Math.random() * (2 - 0 + 1))];
     },
   },
 };
