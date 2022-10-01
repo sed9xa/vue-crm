@@ -25,17 +25,15 @@ export default {
         const categoryRef = ref(db, `/users/${uid}/categories`);
         const snapshot = await get(categoryRef);
         let categoriesSnap = snapshot.val() || {};
-          let categoriesKeys = Object.keys(categoriesSnap);
-          categoriesKeys.forEach((element) => {
-            let currentCategory = categoriesSnap[element];
-            categoriesObjects.push({
-              id: element,
-              title: currentCategory.title,
-              limit: currentCategory.limit,
-            });
+        let categoriesKeys = Object.keys(categoriesSnap);
+        categoriesKeys.forEach((element) => {
+          let currentCategory = categoriesSnap[element];
+          categoriesObjects.push({
+            id: element,
+            title: currentCategory.title,
+            limit: currentCategory.limit,
           });
-          console.log(categoriesObjects, 'fuck')
-        console.log(categoriesObjects);
+        });
         return categoriesObjects;
       } catch (error) {
         throw error;
