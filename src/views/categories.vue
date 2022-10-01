@@ -5,9 +5,9 @@
     </div>
     <section>
       <loader v-if="loading"></loader>
-      <div class="row" v-else>
+      <div class="row" v-else> 
         <category-create @created="addNewCategory"></category-create>
-        <category-edit></category-edit>
+        <category-edit :categories="categories"></category-edit>
       </div>
     </section>
   </div>
@@ -32,8 +32,8 @@ export default {
   },
   async mounted() {
     this.categories = await this.$store.dispatch("fetchCategories");
-    this.loading = false;
     console.log(this.categories);
+    this.loading = false;
   },
   components: { categoryEdit, categoryCreate, Loader },
 };

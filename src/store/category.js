@@ -1,4 +1,4 @@
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
 
 export default {
   actions: {
@@ -23,8 +23,8 @@ export default {
         const uid = await dispatch("getUid");
         const db = getDatabase();
         const categoryRef = ref(db, `/users/${uid}/categories`);
-        onValue(categoryRef, (snapshot) => {
-          let categoriesSnap = snapshot.val() || {};
+        const snapshot = await get(categoryRef);
+        let categoriesSnap = snapshot.val() || {};
           let categoriesKeys = Object.keys(categoriesSnap);
           categoriesKeys.forEach((element) => {
             let currentCategory = categoriesSnap[element];
@@ -34,7 +34,8 @@ export default {
               limit: currentCategory.limit,
             });
           });
-        });
+          console.log(categoriesObjects, 'fuck')
+        console.log(categoriesObjects);
         return categoriesObjects;
       } catch (error) {
         throw error;

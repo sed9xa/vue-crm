@@ -67,12 +67,11 @@ export default {
             title: this.title,
             limit: this.limit,
           });
-        this.title = ''
-        this.limit = 100
-        this.$emit('created', category)
-        this.$v.reset();
+          this.title = "";
+          this.limit = 100;
+          this.$emit("created", category);
+          this.v$.$reset();
         }
-        
       } catch (error) {}
     },
   },
