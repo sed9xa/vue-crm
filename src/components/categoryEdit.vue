@@ -43,7 +43,7 @@
         <button
           class="btn waves-effect waves-light"
           type="submit"
-          @click.prevent="submitHandler"
+          @click.prevent="updateHandler"
         >
           Обновить
           <i class="material-icons right">send</i>
@@ -69,17 +69,19 @@ export default {
     };
   },
   methods: {
-    async submitHandler() {
+    async updateHandler() {
       this.v$.$validate();
       try {
         if (this.v$.$errors.length === 0) {
-          const category = await this.$store.dispatch("createCategory", {
+          const data = {
             title: this.title,
             limit: this.limit,
-          });
-          this.title = "";
-          this.limit = 100;
-          this.$emit("created", category);
+            id: this.current,
+          }
+          this.$store.dispatch('updateData', data)
+          this.$emit('updateCategory', data);
+
+
           this.v$.$reset();
         }
       } catch (error) {}

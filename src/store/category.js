@@ -1,4 +1,4 @@
-import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
+import { get, getDatabase, update, push, ref, set } from "firebase/database";
 
 export default {
   actions: {
@@ -39,5 +39,19 @@ export default {
         throw error;
       }
     },
+
+    async updateData({dispatch}, {title, limit, id}){
+      try {
+        const uid = await dispatch("getUid");
+        const db = getDatabase();
+        const categoryRef = ref(db, `/users/${uid}/categories`);
+        const updates = {};
+        updates[`/${id}/title`] = title; 
+        updates[`/${id}/limit`] = limit; 
+        update(categoryRef, updates)
+      } catch (error) {
+        throw error;
+      }
+    }
   },
 };

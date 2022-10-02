@@ -5,9 +5,13 @@
     </div>
     <section>
       <loader v-if="loading"></loader>
-      <div class="row" v-else> 
+      <div class="row" v-else>
         <category-create @created="addNewCategory"></category-create>
-        <category-edit :categories="categories"></category-edit>
+        <category-edit
+          :key="categories.length + updateKey"
+          :categories="categories"
+          @updateCategory="updateCategory"
+        ></category-edit>
       </div>
     </section>
   </div>
@@ -23,11 +27,18 @@ export default {
     return {
       loading: true,
       categories: [],
+      updateKey: 0,
     };
   },
   methods: {
     addNewCategory(category) {
       this.categories.push(category);
+    },
+    updateCategory(data) {
+      const index = this.categories.findIndex((item) => item.id === data.id);
+      this.categories[index].title = data.title;
+      this.categories[index].limit = data.limit;
+      this.updateKey++
     },
   },
   async mounted() {
