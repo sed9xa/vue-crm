@@ -4,6 +4,7 @@
       <h3>Категории</h3>
     </div>
     <section>
+      
       <loader v-if="loading"></loader>
       <div class="row" v-else>
         <category-create @created="addNewCategory"></category-create>
@@ -44,6 +45,7 @@ export default {
   async mounted() {
     this.categories = await this.$store.dispatch("fetchCategories");
     this.loading = false;
+    this.$message('qwe');
   },
   components: { categoryEdit, categoryCreate, Loader },
 };

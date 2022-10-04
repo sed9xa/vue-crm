@@ -6,9 +6,7 @@ import "materialize-css/dist/js/materialize.min";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import Loader from "@/components/UI/Loader";
-
-
-
+import messagePlugin from "./utils/message.plugin";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRuheaEivL3m2kqSYAZPhhPdUjbCJyyUA",
@@ -26,6 +24,7 @@ let app;
 getAuth().onAuthStateChanged(() => {
   if (!app) {
     app = createApp(App).use(store).use(router);
+    app.use(messagePlugin);
     app.component("Loader", Loader);
     app.mount("#app");
   }
