@@ -80,7 +80,7 @@ export default {
           }
           this.$store.dispatch('updateData', data)
           this.$emit('updateCategory', data);
-
+          this.$message('Category updated')
 
           this.v$.$reset();
         }
