@@ -40,18 +40,18 @@ export default {
       }
     },
 
-    async updateData({dispatch}, {title, limit, id}){
+    async updateData({ dispatch }, { title, limit, id }) {
       try {
         const uid = await dispatch("getUid");
         const db = getDatabase();
         const categoryRef = ref(db, `/users/${uid}/categories`);
         const updates = {};
-        updates[`/${id}/title`] = title; 
-        updates[`/${id}/limit`] = limit; 
-        update(categoryRef, updates)
+        updates[`/${id}/title`] = title;
+        updates[`/${id}/limit`] = limit;
+        update(categoryRef, updates);
       } catch (error) {
         throw error;
       }
-    }
+    },
   },
 };

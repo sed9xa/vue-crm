@@ -4,7 +4,6 @@
       <h3>Категории</h3>
     </div>
     <section>
-      
       <loader v-if="loading"></loader>
       <div class="row" v-else>
         <category-create @created="addNewCategory"></category-create>
@@ -12,7 +11,9 @@
           :key="categories.length + updateKey"
           :categories="categories"
           @updateCategory="updateCategory"
+          v-if="categories.length"
         ></category-edit>
+        <h5 v-else>Категорий пока нет</h5>
       </div>
     </section>
   </div>
@@ -39,7 +40,7 @@ export default {
       const index = this.categories.findIndex((item) => item.id === data.id);
       this.categories[index].title = data.title;
       this.categories[index].limit = data.limit;
-      this.updateKey++
+      this.updateKey++;
     },
   },
   async mounted() {

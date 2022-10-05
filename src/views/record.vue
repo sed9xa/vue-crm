@@ -4,6 +4,7 @@
       <h3>Новая запись</h3>
     </div>
     <loader v-if="loading"></loader>
+    <p v-else-if="!categories.length">Категорий пока нет <router-link to="/categories">Создать категорию</router-link></p>
     <form class="form" v-else>
       <div class="input-field">
         <select ref="select" v-model="category">
