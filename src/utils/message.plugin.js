@@ -4,7 +4,7 @@ export default {
       M.toast({html: text})
     }
     app.config.globalProperties.$error = function(text){
-      M.toast({html: `Error: ${text}`, classes: 'red lighten-1'})
+      M.toast({html: `Ошибка: ${text}`, classes: 'red lighten-1'})
     }
   },
 };

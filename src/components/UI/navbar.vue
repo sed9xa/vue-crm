@@ -48,7 +48,6 @@ export default {
     },
   },
   mounted() {
-    console.log("nav");
     this.dateInterval = setInterval(() => {
       this.date = new Date().toLocaleString().replace(",", " ");
     }, 1000);

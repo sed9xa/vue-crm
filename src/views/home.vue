@@ -8,7 +8,7 @@
       </button>
     </div>
     <Loader v-if="loading"></Loader>
-    <div class="row" v-else>
+    <div class="row plates" v-else>
       <home-bill :rates="currency.rates"></home-bill>
       <home-currency :currency="currency"></home-currency>
     </div>
@@ -27,7 +27,6 @@ export default {
     };
   },
   async mounted() {
-    console.log('home');
     this.currency = await this.$store.dispatch("fetchCurrency");
     this.loading = false;
     
@@ -46,4 +45,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.plates{
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

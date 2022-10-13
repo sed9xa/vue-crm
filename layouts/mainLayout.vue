@@ -26,8 +26,6 @@ export default {
       isOpen: true,
     };
   },
-  //2) i can passing by login form, despite that user dont logged in, app dont catch the error some reason
-
   async mounted() {
     await this.$store.dispatch("fetchInfo");
   },
