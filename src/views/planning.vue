@@ -15,8 +15,9 @@
           <strong>{{ cat.title }}</strong>
           {{ cat.spend }} RUB из {{ cat.limit }} RUB
         </p>
-        <div class="progress">
+        <div class="progress" v-tooltip="cat.remain">
           <div
+            
             class="determinate"
             :class="[cat.progressColor]"
             :style="{ width: cat.progressPercent + '%' }"
@@ -51,11 +52,22 @@ export default {
       const progressPercent = percent > 100 ? 100 : percent;
       const progressColor =
         percent < 60 ? "green" : percent < 100 ? "yellow" : "red";
+        let remain;
+        if (cat.limit - spend > 0){
+          remain = `Осталось ${cat.limit - spend}`
+        }
+        else if (cat.limit - spend === 0){
+          remain = 'Вы достигли лимита по данной категории'
+        }
+        else {
+          remain = `Потрачено больше на ${spend - cat.limit}`
+        }
       return {
         ...cat,
         progressPercent,
         progressColor,
         spend,
+        remain,
       };
     });
   },

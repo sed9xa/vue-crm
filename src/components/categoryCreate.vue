@@ -70,6 +70,7 @@ export default {
           this.title = "";
           this.limit = 100;
           this.$emit("created", category);
+          this.$message('Категория успешно создана')
           this.v$.$reset();
         }
       } catch (error) {}

@@ -52,6 +52,7 @@ export default {
       try {
         await this.$store.dispatch("logOut");
         this.$router.push("/login?message=logout");
+        this.$message('Вы вышли из системы')
       } catch (e) {console.log(e);}
     },
   },
