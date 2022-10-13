@@ -27,8 +27,10 @@ export default {
     };
   },
   async mounted() {
+    console.log('home');
     this.currency = await this.$store.dispatch("fetchCurrency");
     this.loading = false;
+    
   },
   methods: {
    async refresh() {

@@ -44,6 +44,7 @@ export default {
     },
   },
   async mounted() {
+  
     this.categories = await this.$store.dispatch("fetchCategories");
     this.loading = false;
   },

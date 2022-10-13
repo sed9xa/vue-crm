@@ -7,32 +7,16 @@
         </a>
         <span class="black-text">{{ date }}</span>
       </div>
-
-      <ul class="right hide-on-small-and-down">
-        <li>
-          <a
-            class="dropdown-trigger black-text"
-            href="#"
-            data-target="dropdown"
-            ref="dropdown"
-          >
-            {{userName}}
-            <i class="material-icons right">arrow_drop_down</i>
+      <ul class="nav__items">
+        <li class="nav__item">
+          <router-link href="#" class="black-text" to="/profile">
+            <i class="material-icons">account_circle</i>Профиль
+          </router-link>
+        </li>
+        <li class="nav__item">
+          <a @click="logOut" class="black-text">
+            <i class="material-icons">assignment_return</i>Выйти
           </a>
-
-          <ul id="dropdown" class="dropdown-content">
-            <li>
-              <router-link href="#" class="black-text" to="/profile">
-                <i class="material-icons">account_circle</i>Профиль
-              </router-link>
-            </li>
-            <li class="divider" tabindex="-1"></li>
-            <li>
-              <a @click="logOut" class="black-text">
-                <i class="material-icons">assignment_return</i>Выйти
-              </a>
-            </li>
-          </ul>
         </li>
       </ul>
     </div>
@@ -52,19 +36,19 @@ export default {
       try {
         await this.$store.dispatch("logOut");
         this.$router.push("/login?message=logout");
-        this.$message('Вы вышли из системы')
-      } catch (e) {console.log(e);}
+        this.$message("Вы вышли из системы");
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
-  computed:{
-    userName(){
-      return this.$store.getters.info.username
-    }
+  computed: {
+    userName() {
+      return this.$store.getters.info.username;
+    },
   },
   mounted() {
-    M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: true,
-    });
+    console.log("nav");
     this.dateInterval = setInterval(() => {
       this.date = new Date().toLocaleString().replace(",", " ");
     }, 1000);
@@ -75,4 +59,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.black-text {
+  display: flex;
+  gap: 5px;
+}
+</style>
