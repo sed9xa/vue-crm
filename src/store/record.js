@@ -3,7 +3,7 @@ import { getDatabase, ref, set, push, get } from "firebase/database";
 export default {
   state: {},
   actions: {
-    async createRecord({ dispatch, commit }, record) {
+    async createRecord({ dispatch }, record) {
       try {
         const uid = await dispatch("getUid");
         const db = getDatabase();

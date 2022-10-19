@@ -4,7 +4,10 @@
       <h3>Новая запись</h3>
     </div>
     <loader v-if="loading"></loader>
-    <p v-else-if="!categories.length">Категорий пока нет <router-link to="/categories">Создать категорию</router-link></p>
+    <p v-else-if="!categories.length">
+      Категорий пока нет
+      <router-link to="/categories">Создать категорию</router-link>
+    </p>
     <form class="form" v-else>
       <div class="input-field">
         <select ref="select" v-model="category">
@@ -111,14 +114,14 @@ export default {
     async submitHandler() {
       this.v$.$validate();
 
-      if (this.canCreateRecord) {
+      if (this.canCreateRecord && !this.v$.$errors.length) {
         try {
           await this.$store.dispatch("createRecord", {
             categoryID: this.category,
             amount: this.amount,
             description: this.description,
             type: this.type,
-            date: new Date().toJSON(),
+            date: new Date().toLocaleString().replace(",", " "),
           });
         } catch (error) {
           throw error;
@@ -127,8 +130,13 @@ export default {
           this.type === "income"
             ? this.info.bill + this.amount
             : this.info.bill - this.amount;
-            this.$store.dispatch('updateInfo', {bill})
-            this.$message('Данные успешно обновлены')
+        this.$store.dispatch("updateInfo", { bill });
+        this.$message("Данные успешно обновлены");
+        this.amount = null;
+        this.description = "";
+        this.v$.$reset();
+      } else if (this.v$.$errors.length) {
+        this.$message("Вы ввели некорректные данные");
       } else {
         this.$message(
           `Недостаточно средств на счете (${this.amount - this.info.bill})`

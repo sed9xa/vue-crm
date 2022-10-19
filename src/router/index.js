@@ -64,13 +64,13 @@ const routes = [
     component: () => import("@/views/profile"),
   },
   {
-    path: "/detail-record",
-    name: "detail-record",
+    path: "/detail/:id",
+    name: "detail",
     meta: {
       layout: "main",
       auth: true,
     },
-    component: () => import("@/views/detail-record"),
+    component: () => import("@/views/detail"),
   },
   {
     path: "/record",
