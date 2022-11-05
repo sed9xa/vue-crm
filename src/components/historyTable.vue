@@ -10,7 +10,6 @@
         <th>Открыть</th>
       </tr>
     </thead>
-
     <tbody>
       <tr v-for="(record, index) in records" :key="record.id">
         <td>{{ index + 1 }}</td>

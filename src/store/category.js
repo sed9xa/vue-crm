@@ -40,6 +40,19 @@ export default {
       }
     },
 
+    async fetchCategoryById({ dispatch }, id) {
+      try {
+        const uid = await dispatch("getUid");
+        const db = getDatabase();
+        const categoryRef = ref(db, `/users/${uid}/categories`);
+        const snapshot = await get(categoryRef);
+        let categoriesSnap = snapshot.val() || {};
+        return categoriesSnap[id] || 'Not Found'
+      } catch (error) {
+        throw error;
+      }
+    },
+
     async updateData({ dispatch }, { title, limit, id }) {
       try {
         const uid = await dispatch("getUid");
