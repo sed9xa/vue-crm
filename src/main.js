@@ -7,8 +7,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import Loader from "@/components/UI/Loader";
 import messagePlugin from "./utils/message.plugin";
-import FloatingVue from 'floating-vue'
-import 'floating-vue/dist/style.css'
+import FloatingVue from "floating-vue";
+import Paginate from "vuejs-paginate-next";
+import "floating-vue/dist/style.css";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRuheaEivL3m2kqSYAZPhhPdUjbCJyyUA",
@@ -28,6 +29,7 @@ getAuth().onAuthStateChanged(() => {
     app = createApp(App).use(store).use(router);
     app.use(messagePlugin);
     app.use(FloatingVue);
+    app.component("paginate", Paginate);
     app.component("Loader", Loader);
     app.mount("#app");
   }
