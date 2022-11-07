@@ -4,9 +4,7 @@
       <h3>История записей</h3>
     </div>
 
-    <div class="history-chart">
-      <canvas></canvas>
-    </div>
+    <pie-chart :chartData="chartData"></pie-chart>
 
     <Loader v-if="loading"></Loader>
     <div v-else-if="!items.length">
@@ -34,6 +32,8 @@
 <script>
 import historyTable from "@/components/historyTable.vue";
 import paginationMixin from "@/mixins/pagination.mixin";
+import PieChart from "@/components/UI/PieChart.vue";
+import category from "@/store/category";
 export default {
   name: "history",
   mixins: [paginationMixin],
@@ -42,13 +42,52 @@ export default {
       loading: true,
       categories: [],
       records: [],
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: [],
+          },
+        ],
+      },
     };
   },
   async mounted() {
     this.categories = await this.$store.dispatch("fetchCategories");
-    const records = await this.$store.dispatch("fetchRecords");
-    this.setupPagination(
-      records.map((record) => {
+    this.records = await this.$store.dispatch("fetchRecords");
+    this.setup();
+    this.setupChartData();
+
+    this.loading = false;
+  },
+  methods: {
+    setupChartData() {
+      let chartData = {};
+      let data = [];
+      this.records.forEach((record) => {
+        if (record.type === "outcome") {
+          if (chartData[record.categoryName]) {
+            chartData[record.categoryName] += record.amount;
+          } else if (!chartData[record.categoryName]) {
+            chartData[record.categoryName] = record.amount;
+            this.chartData.datasets[0].backgroundColor.push(
+              this.getRandomColor()
+            );
+          }
+        }
+      });
+      for (let item in chartData) {
+        this.chartData.labels.push(item);
+        data.push(chartData[item]);
+      }
+      this.chartData.datasets[0].data = data;
+    },
+    getRandomColor() {
+      return "#" + Math.floor(Math.random() * 16777215).toString(16);
+    },
+    setup() {
+      let records = this.records.map((record) => {
         return {
           ...record,
           categoryName: this.categories.find((c) => c.id === record.categoryID)
@@ -56,14 +95,14 @@ export default {
           typeClass: record.type === "income" ? "green" : "red",
           typeText: record.type === "income" ? "Доход" : "Расход",
         };
-      })
-    );
-
-    this.loading = false;
+      });
+      this.records = records;
+      this.setupPagination(records);
+    },
   },
-
   components: {
     historyTable,
+    PieChart,
   },
 };
 </script>
